@@ -1,35 +1,38 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Loader2 } from 'lucide-react'
 
-type RecipeIdea = {
-  id: string
-  title: string
-  description: string
+type FormData = {
+  ingredients: string
+  cuisine: string
+  dietaryRequirements: string
 }
 
 type RecipeFormProps = {
-  onSubmit: (ideas: RecipeIdea[]) => void
+  onSubmit: (formData: FormData) => void
+  isLoading: boolean
+  initialData: FormData
 }
 
-export function RecipeForm({ onSubmit }: RecipeFormProps) {
-  const [ingredients, setIngredients] = useState('')
-  const [cuisine, setCuisine] = useState('')
-  const [dietaryRequirements, setDietaryRequirements] = useState('')
+export function RecipeForm({ onSubmit, isLoading, initialData }: RecipeFormProps) {
+  const [ingredients, setIngredients] = useState(initialData.ingredients)
+  const [cuisine, setCuisine] = useState(initialData.cuisine)
+  const [dietaryRequirements, setDietaryRequirements] = useState(initialData.dietaryRequirements)
+
+  useEffect(() => {
+    setIngredients(initialData.ingredients)
+    setCuisine(initialData.cuisine)
+    setDietaryRequirements(initialData.dietaryRequirements)
+  }, [initialData])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Placeholder: Generate mock recipe ideas
-    const mockIdeas: RecipeIdea[] = [
-      { id: '1', title: 'Spicy Vegetable Curry', description: 'A flavorful curry with mixed vegetables' },
-      { id: '2', title: 'Grilled Chicken Salad', description: 'A light and healthy salad with grilled chicken' },
-      { id: '3', title: 'Mushroom Risotto', description: 'A creamy Italian rice dish with mushrooms' },
-    ]
-    onSubmit(mockIdeas)
+    onSubmit({ ingredients, cuisine, dietaryRequirements })
   }
 
   return (
@@ -42,6 +45,7 @@ export function RecipeForm({ onSubmit }: RecipeFormProps) {
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
           className="mt-1"
+          disabled={isLoading}
         />
       </div>
       <div>
@@ -52,6 +56,7 @@ export function RecipeForm({ onSubmit }: RecipeFormProps) {
           value={cuisine}
           onChange={(e) => setCuisine(e.target.value)}
           className="mt-1"
+          disabled={isLoading}
         />
       </div>
       <div>
@@ -62,9 +67,19 @@ export function RecipeForm({ onSubmit }: RecipeFormProps) {
           value={dietaryRequirements}
           onChange={(e) => setDietaryRequirements(e.target.value)}
           className="mt-1"
+          disabled={isLoading}
         />
       </div>
-      <Button type="submit" className="w-full">Generate Recipe Ideas</Button>
+      <Button type="submit" className="w-full" disabled={isLoading}>
+        {isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Generating Ideas...
+          </>
+        ) : (
+          'Generate Recipe Ideas'
+        )}
+      </Button>
     </form>
   )
 }

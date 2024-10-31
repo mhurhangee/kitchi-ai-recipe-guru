@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type RecipeIdea = {
   id: string
@@ -7,28 +8,29 @@ type RecipeIdea = {
   description: string
 }
 
-type FullRecipe = {
-  id: string
-  title: string
-  ingredients: string[]
-  instructions: string[]
-}
-
 type RecipeIdeasProps = {
   ideas: RecipeIdea[]
-  onSelectRecipe: (recipe: FullRecipe) => void
+  onSelectRecipe: (recipeId: string) => void
+  isLoading: boolean
 }
 
-export function RecipeIdeas({ ideas, onSelectRecipe }: RecipeIdeasProps) {
-  const handleSelectRecipe = (idea: RecipeIdea) => {
-    // Placeholder: Generate a mock full recipe
-    const mockFullRecipe: FullRecipe = {
-      id: idea.id,
-      title: idea.title,
-      ingredients: ['Ingredient 1', 'Ingredient 2', 'Ingredient 3'],
-      instructions: ['Step 1', 'Step 2', 'Step 3'],
-    }
-    onSelectRecipe(mockFullRecipe)
+export function RecipeIdeas({ ideas, onSelectRecipe, isLoading }: RecipeIdeasProps) {
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        {[1, 2, 3].map((_, index) => (
+          <Card key={`loading-${index}`}>
+            <CardHeader>
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="h-8 w-24" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -40,7 +42,7 @@ export function RecipeIdeas({ ideas, onSelectRecipe }: RecipeIdeasProps) {
             <CardDescription>{idea.description}</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => handleSelectRecipe(idea)}>View Full Recipe</Button>
+            <Button onClick={() => onSelectRecipe(idea.id)}>View Full Recipe</Button>
           </CardContent>
         </Card>
       ))}

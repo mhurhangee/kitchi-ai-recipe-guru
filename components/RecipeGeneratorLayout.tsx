@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { experimental_useObject as useObject } from 'ai/react'
 import { RecipeForm } from './RecipeForm'
 import { RecipeIdeas } from './RecipeIdeas'
 import { FullRecipe } from './FullRecipe'
@@ -9,6 +10,9 @@ import { RecipeStepper } from './RecipeStepper'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { recipeIdeasSchema, fullRecipeSchema } from '@/app/api/generate-recipes/schema'
+
+const stages = ['input', 'ideas', 'recipe']
 
 type RecipeIdea = {
   id: string
@@ -21,37 +25,62 @@ type FullRecipeType = {
   title: string
   ingredients: string[]
   instructions: string[]
+  servings: number
+  prepTime: string
+  cookTime: string
 }
 
-const stages = ['input', 'ideas', 'recipe']
+type FormData = {
+  ingredients: string
+  cuisine: string
+  dietaryRequirements: string
+}
 
 export function RecipeGeneratorLayout() {
   const [activePanel, setActivePanel] = useState('input')
-  const [recipeIdeas, setRecipeIdeas] = useState<RecipeIdea[]>([])
-  const [selectedRecipe, setSelectedRecipe] = useState<FullRecipeType | null>(null)
   const [completedSteps, setCompletedSteps] = useState<string[]>([])
   const [direction, setDirection] = useState(0)
-  const [containerHeight, setContainerHeight] = useState(0)
+  const [formData, setFormData] = useState<FormData>({
+    ingredients: '',
+    cuisine: '',
+    dietaryRequirements: '',
+  })
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (containerRef.current) {
-      setContainerHeight(containerRef.current.scrollHeight)
-    }
-  }, [activePanel])
+  const { 
+    object: recipeIdeas, 
+    submit: generateRecipeIdeas,
+    isLoading: isGeneratingIdeas
+  } = useObject({
+    api: '/api/generate-recipes/ideas',
+    schema: recipeIdeasSchema,
+  })
 
-  const handleFormSubmit = (ideas: RecipeIdea[]) => {
-    setRecipeIdeas(ideas)
+  const {
+    object: fullRecipe,
+    submit: generateFullRecipe,
+    isLoading: isGeneratingRecipe
+  } = useObject({
+    api: '/api/generate-recipes/full',
+    schema: fullRecipeSchema,
+  })
+
+  const handleFormSubmit = (data: FormData) => {
+    setFormData(data)
+    generateRecipeIdeas(data)
     setActivePanel('ideas')
     setCompletedSteps(['input'])
     setDirection(1)
   }
 
-  const handleSelectRecipe = (recipe: FullRecipeType) => {
-    setSelectedRecipe(recipe)
-    setActivePanel('recipe')
-    setCompletedSteps(['input', 'ideas'])
-    setDirection(1)
+  const handleSelectRecipe = (recipeId: string) => {
+    const selectedIdea = recipeIdeas?.recipeIdeas?.find(idea => idea?.id === recipeId)
+    if (selectedIdea) {
+      generateFullRecipe({ id: recipeId, ...selectedIdea })
+      setActivePanel('recipe')
+      setCompletedSteps(['input', 'ideas'])
+      setDirection(1)
+    }
   }
 
   const handleStepClick = (step: string) => {
@@ -70,6 +99,17 @@ export function RecipeGeneratorLayout() {
       setDirection(1)
       setActivePanel(stages[currentIndex + 1])
     }
+  }
+
+  const handleStartAgain = () => {
+    setActivePanel('input')
+    setCompletedSteps([])
+    setDirection(0)
+    setFormData({
+      ingredients: '',
+      cuisine: '',
+      dietaryRequirements: '',
+    })
   }
 
   const slideVariants = {
@@ -98,10 +138,10 @@ export function RecipeGeneratorLayout() {
         currentStep={activePanel} 
         onStepClick={handleStepClick} 
         completedSteps={completedSteps}
+        onStartAgain={handleStartAgain}
       />
       <div 
-        className="relative overflow-hidden" 
-        style={{ height: containerHeight }}
+        className="relative"
         ref={containerRef}
       >
         <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -114,7 +154,7 @@ export function RecipeGeneratorLayout() {
               animate="center"
               exit="exit"
               transition={transition}
-              className="absolute w-full"
+              className="w-full"
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -141,7 +181,7 @@ export function RecipeGeneratorLayout() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <RecipeForm onSubmit={handleFormSubmit} />
+                  <RecipeForm onSubmit={handleFormSubmit} isLoading={isGeneratingIdeas} initialData={formData} />
                 </CardContent>
               </Card>
             </motion.div>
@@ -155,7 +195,7 @@ export function RecipeGeneratorLayout() {
               animate="center"
               exit="exit"
               transition={transition}
-              className="absolute w-full"
+              className="w-full"
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -182,8 +222,9 @@ export function RecipeGeneratorLayout() {
                 </CardHeader>
                 <CardContent>
                   <RecipeIdeas
-                    ideas={recipeIdeas}
+                    ideas={(recipeIdeas?.recipeIdeas || []) as RecipeIdea[]}
                     onSelectRecipe={handleSelectRecipe}
+                    isLoading={isGeneratingRecipe}
                   />
                 </CardContent>
               </Card>
@@ -198,7 +239,7 @@ export function RecipeGeneratorLayout() {
               animate="center"
               exit="exit"
               transition={transition}
-              className="absolute w-full"
+              className="w-full"
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
@@ -224,7 +265,7 @@ export function RecipeGeneratorLayout() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <FullRecipe recipe={selectedRecipe} />
+                  <FullRecipe recipe={fullRecipe as FullRecipeType | null} isLoading={isGeneratingRecipe} />
                 </CardContent>
               </Card>
             </motion.div>
