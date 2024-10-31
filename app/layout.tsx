@@ -1,18 +1,7 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/ThemeToggle";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { inter, lora } from '@/lib/fonts'
 
 export const metadata = {
   title: 'Kitchi: AI Recipe Generator',
@@ -27,17 +16,15 @@ export const metadata = {
   },
 }
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -46,8 +33,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="container mx-auto px-4 py-8">
-            <h1 className="text-4xl font-bold mb-8 text-center">Kitchi: AI Recipe Generator  <ThemeToggle />
-            {children}</h1> 
+            <h1 className="text-4xl font-bold mb-8 text-center font-serif">Kitchi: AI Recipe Generator  <ThemeToggle /></h1>
+            {children}
           </main>
         </ThemeProvider>
       </body>

@@ -31,9 +31,18 @@ type FullRecipeType = {
 }
 
 type FormData = {
-  ingredients: string
+  dishName: string
+  ingredients: string[]
   cuisine: string
-  dietaryRequirements: string
+  dietaryRequirements: string[]
+  servings: number
+  difficulty: string
+  spiceLevel: string
+  timeRange: string
+  otherNotes: string
+  numberOfSuggestions: number
+  adventurous: boolean
+  ingredientsToAvoid: string[]
 }
 
 export function RecipeGeneratorLayout() {
@@ -41,9 +50,18 @@ export function RecipeGeneratorLayout() {
   const [completedSteps, setCompletedSteps] = useState<string[]>([])
   const [direction, setDirection] = useState(0)
   const [formData, setFormData] = useState<FormData>({
-    ingredients: '',
+    dishName: '',
+    ingredients: [],
     cuisine: '',
-    dietaryRequirements: '',
+    dietaryRequirements: [],
+    servings: 2,
+    difficulty: 'Moderate',
+    spiceLevel: 'Medium',
+    timeRange: 'Moderate (30-60 minutes)',
+    otherNotes: '',
+    numberOfSuggestions: 3,
+    adventurous: false,
+    ingredientsToAvoid: [],
   })
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -106,9 +124,18 @@ export function RecipeGeneratorLayout() {
     setCompletedSteps([])
     setDirection(0)
     setFormData({
-      ingredients: '',
+      dishName: '',
+      ingredients: [],
       cuisine: '',
-      dietaryRequirements: '',
+      dietaryRequirements: [],
+      servings: 2,
+      difficulty: 'Moderate',
+      spiceLevel: 'Medium',
+      timeRange: 'Moderate (30-60 minutes)',
+      otherNotes: '',
+      numberOfSuggestions: 3,
+      adventurous: false,
+      ingredientsToAvoid: [],
     })
   }
 
