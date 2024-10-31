@@ -82,9 +82,14 @@ export function RecipeGeneratorLayout() {
       opacity: 1,
     },
     exit: (direction: number) => ({
-      x: direction > 0 ? '-100%' : '100%',
+      x: direction < 0 ? '100%' : '-100%',
       opacity: 0,
     }),
+  }
+
+  const transition = {
+    x: { type: "spring", stiffness: 100, damping: 20 },
+    opacity: { duration: 0.3 }
   }
 
   return (
@@ -108,10 +113,7 @@ export function RecipeGeneratorLayout() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
+              transition={transition}
               className="absolute w-full"
             >
               <Card>
@@ -152,10 +154,7 @@ export function RecipeGeneratorLayout() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
+              transition={transition}
               className="absolute w-full"
             >
               <Card>
@@ -198,10 +197,7 @@ export function RecipeGeneratorLayout() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
-              }}
+              transition={transition}
               className="absolute w-full"
             >
               <Card>
