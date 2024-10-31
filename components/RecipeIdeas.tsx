@@ -17,10 +17,9 @@ type FullRecipe = {
 type RecipeIdeasProps = {
   ideas: RecipeIdea[]
   onSelectRecipe: (recipe: FullRecipe) => void
-  onBack: () => void
 }
 
-export function RecipeIdeas({ ideas, onSelectRecipe, onBack }: RecipeIdeasProps) {
+export function RecipeIdeas({ ideas, onSelectRecipe }: RecipeIdeasProps) {
   const handleSelectRecipe = (idea: RecipeIdea) => {
     // Placeholder: Generate a mock full recipe
     const mockFullRecipe: FullRecipe = {
@@ -34,7 +33,6 @@ export function RecipeIdeas({ ideas, onSelectRecipe, onBack }: RecipeIdeasProps)
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Recipe Ideas</h2>
       {ideas.map((idea) => (
         <Card key={idea.id}>
           <CardHeader>
@@ -46,7 +44,6 @@ export function RecipeIdeas({ ideas, onSelectRecipe, onBack }: RecipeIdeasProps)
           </CardContent>
         </Card>
       ))}
-      <Button variant="outline" onClick={onBack}>Back to Form</Button>
     </div>
   )
 }

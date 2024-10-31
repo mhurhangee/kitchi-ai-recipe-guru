@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 type FullRecipe = {
@@ -10,10 +9,9 @@ type FullRecipe = {
 
 type FullRecipeProps = {
   recipe: FullRecipe | null
-  onBack: () => void
 }
 
-export function FullRecipe({ recipe, onBack }: FullRecipeProps) {
+export function FullRecipe({ recipe }: FullRecipeProps) {
   if (!recipe) return null
 
   return (
@@ -38,7 +36,6 @@ export function FullRecipe({ recipe, onBack }: FullRecipeProps) {
             ))}
           </ol>
         </div>
-        <Button variant="outline" onClick={onBack}>Back to Recipe Ideas</Button>
       </CardContent>
     </Card>
   )
