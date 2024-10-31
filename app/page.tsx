@@ -1,9 +1,9 @@
-import { RecipeForm } from '@/components/RecipeForm'
+import { RecipeGeneratorLayout } from '@/components/RecipeGeneratorLayout'
 
 export default function Home() {
   return (
-    <div className="max-w-2xl mx-auto">
-      <RecipeForm />
+    <div className="min-h-screen bg-background">
+      <RecipeGeneratorLayout />
     </div>
   )
 }
