@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,10 +39,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="container mx-auto px-4 py-8">
-          <h1 className="text-4xl font-bold mb-8 text-center">Kitchi: AI Recipe Generator</h1>
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="container mx-auto px-4 py-8">
+            <h1 className="text-4xl font-bold mb-8 text-center">Kitchi: AI Recipe Generator  <ThemeToggle />
+            {children}</h1> 
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -19,7 +19,7 @@ type FullRecipeProps = {
 export function FullRecipe({ recipe, isLoading }: FullRecipeProps) {
   if (isLoading) {
     return (
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <Skeleton className="h-8 w-3/4 mb-2" />
         </CardHeader>
@@ -44,32 +44,33 @@ export function FullRecipe({ recipe, isLoading }: FullRecipeProps) {
   if (!recipe) return null
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>{recipe.title}</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">{recipe.title}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 text-left">
+      <div className="flex flex-wrap justify-between text-sm text-muted-foreground bg-muted p-4 rounded-md">
+          <span className="text-left">Servings: {recipe.servings}</span>
+          <span className="text-left">Prep Time: {recipe.prepTime}</span>
+          <span className="text-left">Cook Time: {recipe.cookTime}</span>
+        </div>
         <div>
-          <h3 className="text-lg font-semibold mb-2">Ingredients:</h3>
-          <ul className="list-disc list-inside">
+          <h3 className="text-lg font-semibold mb-2 text-primary text-left">Ingredients:</h3>
+          <ul className="list-disc list-inside space-y-1 text-sm text-left">
             {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
+              <li key={index} className="text-foreground">{ingredient}</li>
             ))}
           </ul>
         </div>
         <div>
-          <h3 className="text-lg font-semibold mb-2">Instructions:</h3>
-          <ol className="list-decimal list-inside">
+          <h3 className="text-lg font-semibold mb-2 text-primary text-left">Instructions:</h3>
+          <ol className="list-decimal list-outside ml-4 space-y-2 text-sm text-left">
             {recipe.instructions.map((step, index) => (
-              <li key={index}>{step}</li>
+              <li key={index} className="text-foreground">{step}</li>
             ))}
           </ol>
         </div>
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>Servings: {recipe.servings}</span>
-          <span>Prep Time: {recipe.prepTime}</span>
-          <span>Cook Time: {recipe.cookTime}</span>
-        </div>
+
       </CardContent>
     </Card>
   )

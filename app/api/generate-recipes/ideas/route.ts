@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     model: openai('gpt-4o-mini'),
     schema: recipeIdeasSchema,
     prompt: `Generate 3 recipe ideas based on the following:
-      Ingredients: ${ingredients}
+      Ingredients: ${ingredients || 'Any'}
       Cuisine: ${cuisine || 'Any'}
       Dietary Requirements: ${dietaryRequirements || 'None'}
       

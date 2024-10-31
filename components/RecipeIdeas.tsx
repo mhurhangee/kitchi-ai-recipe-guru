@@ -17,7 +17,7 @@ type RecipeIdeasProps = {
 export function RecipeIdeas({ ideas, onSelectRecipe, isLoading }: RecipeIdeasProps) {
   if (isLoading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6" key="skeleton">
         {[1, 2, 3].map((_, index) => (
           <Card key={`loading-${index}`}>
             <CardHeader>
@@ -34,7 +34,7 @@ export function RecipeIdeas({ ideas, onSelectRecipe, isLoading }: RecipeIdeasPro
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" key="real">
       {ideas.map((idea) => (
         <Card key={idea.id}>
           <CardHeader>
