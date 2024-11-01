@@ -185,7 +185,7 @@ export function RecipeGeneratorLayout() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-0 sm:px-2 py-2 sm:py-2">
+    <div className="max-w-4xl mx-auto px-0 sm:px-2 py-1 sm:py-2">
       <RecipeStepper 
         currentStep={activePanel} 
         onStepClick={handleStepClick} 
@@ -208,8 +208,8 @@ export function RecipeGeneratorLayout() {
               transition={transition}
               className="w-full"
             >
-              <Card className="overflow-hidden xs:p-0 xs:m-0">
-                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6">
+              <Card className="overflow-hidden">
+                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-1 sm:p-6">
                   <CardTitle><span className="text-xl sm:text-2xl font-bold text-center font-serif">Recipe Options</span></CardTitle>
                   <div className="flex space-x-2 mt-2 sm:mt-0">
                     <Button
@@ -232,7 +232,7 @@ export function RecipeGeneratorLayout() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6">
+                <CardContent className="p-1 sm:p-6">
                   <RecipeForm onSubmit={handleFormSubmit} isLoading={isGeneratingIdeas} initialData={formData} />
                 </CardContent>
               </Card>
@@ -250,7 +250,7 @@ export function RecipeGeneratorLayout() {
               className="w-full"
             >
               <Card className="overflow-hidden">
-                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-1 sm:p-2 m-0">
+                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-1 sm:p-6">
                   <CardTitle><span className="text-xl sm:text-2xl font-bold text-center font-serif">Recipe Ideas</span></CardTitle>
                   <div className="flex space-x-2 mt-2 sm:mt-0">
                     <Button
@@ -272,7 +272,7 @@ export function RecipeGeneratorLayout() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6">
+                <CardContent className="p-1 sm:p-6">
                 <RecipeIdeas
                     ideas={(recipeIdeas?.recipeIdeas || []) as RecipeIdea[]}
                     onSelectRecipe={handleSelectRecipe}
@@ -296,7 +296,7 @@ export function RecipeGeneratorLayout() {
               className="w-full"
             >
               <Card className="overflow-hidden">
-                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6">
+                <CardHeader className="flex flex-col sm:flex-row items-center justify-between p-1 sm:p-6">
                   <CardTitle><span className="text-xl sm:text-2xl font-bold text-center font-serif">Full Recipe</span></CardTitle>
                   <div className="flex space-x-2 mt-2 sm:mt-0">
                     <Button
@@ -318,7 +318,7 @@ export function RecipeGeneratorLayout() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6">
+                <CardContent className="p-1 sm:p-6">
                   <FullRecipe recipe={fullRecipe as FullRecipeType | null} isLoading={isGeneratingRecipe} />
                 </CardContent>
               </Card>
