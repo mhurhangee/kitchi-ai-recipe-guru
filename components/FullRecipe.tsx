@@ -49,27 +49,29 @@ export function FullRecipe({ recipe, isLoading }: FullRecipeProps) {
 
   if (!recipe) return null
 
+  if (!recipe) return null
+
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">{recipe.title}</CardTitle>
+        <CardTitle className="text-xl sm:text-2xl font-bold">{recipe.title}</CardTitle>
         <p className="text-sm text-muted-foreground">{recipe.description}</p>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between p-4 bg-muted rounded-md text-sm">
-          <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap justify-between p-2 sm:p-4 bg-muted rounded-md text-xs sm:text-sm">
+          <div className="flex items-center space-x-2 mb-1 sm:mb-0">
             <Users className="h-4 w-4" />
             <span>{recipe.servings} servings</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mb-1 sm:mb-0">
             <Clock className="h-4 w-4" />
             <span>{recipe.timeDescription}</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mb-1 sm:mb-0">
             <BarChart className="h-4 w-4" />
             <span>{recipe.difficulty}</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mb-1 sm:mb-0">
             <ThermometerSun className="h-4 w-4" />
             <span>{recipe.spiceLevel}</span>
           </div>

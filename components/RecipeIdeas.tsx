@@ -15,7 +15,6 @@ type RecipeIdeasProps = {
 export function RecipeIdeas({ ideas, onSelectRecipe, onGenerateSimilar, isLoading, numberOfSuggestions }: RecipeIdeasProps) {
   const ideasToRender = isLoading ? Array(numberOfSuggestions).fill(null) : ideas
 
-
   return (
     <div className="space-y-4" key="recipe-ideas-list">
       {ideasToRender.map((idea, index) => (
@@ -29,26 +28,34 @@ export function RecipeIdeas({ ideas, onSelectRecipe, onGenerateSimilar, isLoadin
                 <CardDescription className="text-sm">{idea.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between items-center mb-2 text-xs">
-                  <div className="flex items-center">
-                    <Users className="h-3 w-3 mr-1" />
+                <div className="flex flex-wrap justify-between items-center mb-2 text-xs">
+                  <div className="flex items-center space-x-2 mb-1 sm:mb-0">
+                    <Users className="h-3 w-3" />
                     <span>{idea.servings}</span>
-                    <Clock className="h-3 w-3 ml-3 mr-1" />
+                  </div>
+                  <div className="flex items-center space-x-2 mb-1 sm:mb-0">
+                    <Clock className="h-3 w-3" />
                     <span>{idea.timeDescription}</span>
-                    <BarChart className="h-3 w-3 ml-4 mr-1" />
+                  </div>
+                  <div className="flex items-center space-x-2 mb-1 sm:mb-0">
+                    <BarChart className="h-3 w-3" />
                     <span>{idea.difficulty}</span>
-                    <ThermometerSun className="h-3 w-3 ml-4 mr-1" />
+                  </div>
+                  <div className="flex items-center space-x-2 mb-1 sm:mb-0">
+                    <ThermometerSun className="h-3 w-3" />
                     <span>{idea.spiceLevel}</span>
-                    <Globe className="h-3 w-3 ml-4 mr-1" />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Globe className="h-3 w-3" />
                     <span>{idea.cuisine}</span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center mt-4">
-                  <Button onClick={() => onSelectRecipe(idea.id)} className="text-sm px-4">
-                    <ChefHat className='h-3 w-3' />See Recipe
+                <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
+                  <Button onClick={() => onSelectRecipe(idea.id)} className="text-sm px-4 w-full sm:w-auto">
+                    <ChefHat className="h-3 w-3 mr-2" />See Recipe
                   </Button>
-                  <Button onClick={() => onGenerateSimilar(idea.id)} variant="outline" className="text-sm px-4">
-                  <Repeat className='h-3 w-3' /> Similar Ideas 
+                  <Button onClick={() => onGenerateSimilar(idea.id)} variant="outline" className="text-sm px-4 w-full sm:w-auto">
+                    <Repeat className="h-3 w-3 mr-2" />Similar Ideas 
                   </Button>
                 </div>
               </CardContent>
@@ -63,8 +70,8 @@ export function RecipeIdeas({ ideas, onSelectRecipe, onGenerateSimilar, isLoadin
               <CardContent>
                 <Skeleton className="h-3 w-full mb-2" />
                 <div className="flex justify-between items-center mt-4">
-                  <Skeleton className="h-8 w-1/3" />
-                  <Skeleton className="h-8 w-1/3" />
+                  <Skeleton className="h-8 w-full sm:w-1/3" />
+                  <Skeleton className="h-8 w-full sm:w-1/3 hidden sm:block" />
                 </div>
               </CardContent>
             </>

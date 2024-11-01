@@ -34,7 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="container mx-auto px-4 py-8">
+          <main className="container mx-auto px-1 py-1">
             <h1 className="text-4xl font-bold text-center font-serif">Kitchi: AI Recipe Generator  <ThemeToggle /></h1>
             {children}
           </main>
