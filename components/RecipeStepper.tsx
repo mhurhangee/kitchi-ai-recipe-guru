@@ -16,7 +16,7 @@ type RecipeStepperProps = {
 
 const steps: Step[] = [
   { id: 'start', label: 'Start Over', icon: <RotateCcw className="h-4 w-4" /> },
-  { id: 'input', label: 'Input', icon: <List className="h-4 w-4" /> },
+  { id: 'input', label: 'Options', icon: <List className="h-4 w-4" /> },
   { id: 'ideas', label: 'Ideas', icon: <ChefHat className="h-4 w-4" /> },
   { id: 'recipe', label: 'Recipe', icon: <UtensilsCrossed className="h-4 w-4" /> },
 ]

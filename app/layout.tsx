@@ -2,6 +2,8 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { inter, lora } from '@/lib/fonts'
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export const metadata = {
   title: 'Kitchi: AI Recipe Generator',
@@ -33,7 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="container mx-auto px-4 py-8">
-            <h1 className="text-4xl font-bold mb-8 text-center font-serif">Kitchi: AI Recipe Generator  <ThemeToggle /></h1>
+            <h1 className="text-4xl font-bold text-center font-serif">Kitchi: AI Recipe Generator  <ThemeToggle /></h1>
             {children}
           </main>
         </ThemeProvider>

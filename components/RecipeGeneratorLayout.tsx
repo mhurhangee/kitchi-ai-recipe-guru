@@ -31,14 +31,16 @@ type FullRecipeType = {
 }
 
 type FormData = {
-  dishName: string
+  recipeNames: string[]
+  recipeNameSearchType: 'similar' | 'exact' | 'variants' | null
   ingredients: string[]
-  cuisine: string
+  cuisine: string[]
   dietaryRequirements: string[]
   servings: number
-  difficulty: string
-  spiceLevel: string
-  timeRange: string
+  difficulty: string | null
+  spiceLevel: string | null
+  timeRange: string | null
+  recipeType: string | null
   otherNotes: string
   numberOfSuggestions: number
   adventurous: boolean
@@ -50,16 +52,18 @@ export function RecipeGeneratorLayout() {
   const [completedSteps, setCompletedSteps] = useState<string[]>([])
   const [direction, setDirection] = useState(0)
   const [formData, setFormData] = useState<FormData>({
-    dishName: '',
+    recipeNames: [],
+    recipeNameSearchType: null,
     ingredients: [],
-    cuisine: '',
+    cuisine: [],
     dietaryRequirements: [],
     servings: 2,
-    difficulty: 'Moderate',
-    spiceLevel: 'Medium',
-    timeRange: 'Moderate (30-60 minutes)',
+    difficulty: null,
+    spiceLevel: null,
+    timeRange: null,
+    recipeType: null,
     otherNotes: '',
-    numberOfSuggestions: 3,
+    numberOfSuggestions: 4,
     adventurous: false,
     ingredientsToAvoid: [],
   })
@@ -124,16 +128,18 @@ export function RecipeGeneratorLayout() {
     setCompletedSteps([])
     setDirection(0)
     setFormData({
-      dishName: '',
+      recipeNames: [],
+      recipeNameSearchType: null,
       ingredients: [],
-      cuisine: '',
+      cuisine: [],
       dietaryRequirements: [],
       servings: 2,
-      difficulty: 'Moderate',
-      spiceLevel: 'Medium',
-      timeRange: 'Moderate (30-60 minutes)',
+      difficulty: null,
+      spiceLevel: null,
+      timeRange: null,
+      recipeType: null,
       otherNotes: '',
-      numberOfSuggestions: 3,
+      numberOfSuggestions: 4,
       adventurous: false,
       ingredientsToAvoid: [],
     })
@@ -185,7 +191,7 @@ export function RecipeGeneratorLayout() {
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>Recipe Input</CardTitle>
+                  <CardTitle><span className="text-2xl font-bold mb-8 text-center font-serif">Recipe Options</span></CardTitle>
                   <div className="flex space-x-2">
                     <Button
                       variant="outline"
