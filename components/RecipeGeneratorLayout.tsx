@@ -95,7 +95,7 @@ export function RecipeGeneratorLayout() {
 
   const handleFormSubmit = (data: FormData) => {
     setFormData(data)
-    generateRecipeIdeas(data)
+    generateRecipeIdeas({ formData: data }) 
     setActivePanel('ideas')
     setCompletedSteps(['input'])
     setDirection(1)

@@ -7,6 +7,8 @@ export const maxDuration = 30
 export async function POST(req: Request) {
   const { formData, similarTo } = await req.json()
 
+  console.log(formData)
+
   let prompt = ''
   const numberOfSuggestions = formData?.numberOfSuggestions || 4
 
