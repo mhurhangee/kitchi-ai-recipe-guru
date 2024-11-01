@@ -29,11 +29,14 @@ export type RecipeIdea = {
 type FullRecipeType = {
   id: string
   title: string
+  description: string
   ingredients: string[]
   instructions: string[]
   servings: number
-  prepTime: string
-  cookTime: string
+  timeDescription: string
+  cuisine: string
+  difficulty: string
+  spiceLevel: string
 }
 
 type FormData = {

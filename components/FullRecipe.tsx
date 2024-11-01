@@ -56,10 +56,10 @@ export function FullRecipe({ recipe, isLoading }: FullRecipeProps) {
         <p className="text-sm text-muted-foreground">{recipe.description}</p>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center justify-between p-2 rounded-md text-sm">
+        <div className="flex items-center justify-between p-4 bg-muted rounded-md text-sm">
           <div className="flex items-center space-x-2">
             <Users className="h-4 w-4" />
-            <span>{recipe.servings}</span>
+            <span>{recipe.servings} servings</span>
           </div>
           <div className="flex items-center space-x-2">
             <Clock className="h-4 w-4" />

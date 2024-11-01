@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Loader2, ChefHat, Utensils, Clock, ThermometerSun, Users, Globe, Leaf, AlertTriangle, BookOpen } from 'lucide-react'
+import { Loader2, ChefHat, Utensils, ThermometerSun, Globe, Leaf, BookOpen } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -386,7 +386,7 @@ export function RecipeForm({ onSubmit, isLoading, initialData }: RecipeFormProps
           <AccordionContent>
             <div className="space-y-6">
               <div className="space-y-4">
-                <Label htmlFor="recipeType" className="text-left block">Recipe Type<span className="text-sm text-muted-foreground font-light"> - Select the type of recipe you're looking for.</span></Label>
+                <Label htmlFor="recipeType" className="text-left block">Recipe Type<span className="text-sm text-muted-foreground font-light"> - Select the type of recipe you are looking for.</span></Label>
                 <Select
                   value={formData.recipeType || ''}
                   onValueChange={(value) => handleChange('recipeType', value || null)}
@@ -490,7 +490,7 @@ export function RecipeForm({ onSubmit, isLoading, initialData }: RecipeFormProps
           <AccordionContent>
             <div className="space-y-6">
               <div className="space-y-4">
-                <Label htmlFor="numberOfSuggestions" className="text-left block">Number of Suggestions<span className="text-sm text-muted-foreground font-light"> - Choose how many recipe ideas you'd like to receive.</span></Label>
+                <Label htmlFor="numberOfSuggestions" className="text-left block">Number of Suggestions<span className="text-sm text-muted-foreground font-light"> - Choose how many recipe ideas to generate.</span></Label>
                 <div className="flex items-center space-x-2">
                   <Slider
                     id="numberOfSuggestions"
