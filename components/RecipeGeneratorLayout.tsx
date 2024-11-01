@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -14,10 +14,16 @@ import { recipeIdeasSchema, fullRecipeSchema } from '@/app/api/generate-recipes/
 
 const stages = ['input', 'ideas', 'recipe']
 
-type RecipeIdea = {
+export type RecipeIdea = {
   id: string
   title: string
   description: string
+  servings: number
+  prepTime: string
+  cookTime: string
+  cuisine: string
+  difficulty: string
+  spiceLevel: string
 }
 
 type FullRecipeType = {
@@ -120,6 +126,16 @@ export function RecipeGeneratorLayout() {
     } else if (direction === 'next' && currentIndex < stages.length - 1 && completedSteps.includes(stages[currentIndex])) {
       setDirection(1)
       setActivePanel(stages[currentIndex + 1])
+    }
+  }
+
+  const handleGenerateSimilar = (recipeId: string) => {
+    const selectedIdea = recipeIdeas?.recipeIdeas?.find(idea => idea?.id === recipeId)
+    if (selectedIdea) {
+      generateRecipeIdeas({ formData, similarTo: selectedIdea })
+      setActivePanel('ideas')
+      setCompletedSteps(['input', 'ideas'])
+      setDirection(0)
     }
   }
 
@@ -232,7 +248,7 @@ export function RecipeGeneratorLayout() {
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>Recipe Ideas</CardTitle>
+                  <CardTitle><span className="text-2xl font-bold mb-8 text-center font-serif">Recipe Ideas</span></CardTitle>
                   <div className="flex space-x-2">
                     <Button
                       variant="outline"
@@ -254,10 +270,12 @@ export function RecipeGeneratorLayout() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <RecipeIdeas
+                <RecipeIdeas
                     ideas={(recipeIdeas?.recipeIdeas || []) as RecipeIdea[]}
                     onSelectRecipe={handleSelectRecipe}
-                    isLoading={isGeneratingRecipe}
+                    onGenerateSimilar={handleGenerateSimilar}
+                    isLoading={isGeneratingIdeas}
+                    numberOfSuggestions={formData.numberOfSuggestions}
                   />
                 </CardContent>
               </Card>
@@ -276,7 +294,7 @@ export function RecipeGeneratorLayout() {
             >
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>Full Recipe</CardTitle>
+                  <CardTitle><span className="text-2xl font-bold mb-8 text-center font-serif">Full Recipe</span></CardTitle>
                   <div className="flex space-x-2">
                     <Button
                       variant="outline"

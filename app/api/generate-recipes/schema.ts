@@ -6,6 +6,11 @@ export const recipeIdeasSchema = z.object({
       id: z.string(),
       title: z.string(),
       description: z.string(),
+      servings: z.number(),
+      timeDescription: z.string(),
+      cuisine: z.string(),
+      difficulty: z.string(),
+      spiceLevel: z.string(),
     })
   ),
 });

@@ -2,7 +2,7 @@ import { openai } from '@ai-sdk/openai'
 import { streamObject } from 'ai'
 import { fullRecipeSchema } from '../schema'
 
-export const maxDuration = 30
+export const maxDuration = 10
 
 export async function POST(req: Request) {
   const { id, title, description } = await req.json()
