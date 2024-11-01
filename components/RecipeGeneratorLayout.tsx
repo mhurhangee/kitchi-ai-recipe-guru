@@ -232,7 +232,7 @@ export function RecipeGeneratorLayout() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="p-1 sm:p-6">
+                <CardContent className="p-2 sm:p-6">
                   <RecipeForm onSubmit={handleFormSubmit} isLoading={isGeneratingIdeas} initialData={formData} />
                 </CardContent>
               </Card>
