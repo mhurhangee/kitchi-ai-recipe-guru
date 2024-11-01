@@ -25,19 +25,35 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
-      <body
-        className={`font-sans antialiased`}
-      >
+      <body className="font-sans antialiased flex flex-col min-h-screen">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="container mx-auto px-1 py-1">
-            <h1 className="text-4xl font-bold text-center font-serif">Kitchi: AI Recipe Generator  <ThemeToggle /></h1>
+          <main className="container mx-auto px-1 py-1 flex-grow">
+            <h1 className="text-4xl font-bold text-center font-serif">Kitchi: AI Recipe Generator</h1>
             {children}
           </main>
+          <footer className="py-4 border-t">
+            <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+              <div className="flex items-center space-x-4 mb-4 sm:mb-0">
+                <Link 
+                  href="https://github.com/mhurhangee/kitchi-ai-recipe-guru" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center hover:text-primary transition-colors"
+                >
+                  <GitHubLogoIcon className="w-5 h-5 mr-2" />
+                  <span>GitHub</span>
+                </Link>
+                <span>|</span>
+                <span>Made for 😋 by m.hurhangee@me.com</span>
+              </div>
+              <ThemeToggle />
+            </div>
+          </footer>
         </ThemeProvider>
       </body>
     </html>
