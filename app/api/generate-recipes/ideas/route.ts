@@ -1,6 +1,7 @@
-import { openai } from '@ai-sdk/openai'
+
 import { streamObject } from 'ai'
 import { recipeIdeasSchema } from '../schema'
+import { MODEL, TEMPERATURE, MAX_TOKENS } from '@/lib/model'
 
 export const maxDuration = 30
 
@@ -102,9 +103,11 @@ export async function POST(req: Request) {
   console.log(prompt)
 
   const result = await streamObject({
-    model: openai('gpt-4o-mini'),
+    model: MODEL,
     schema: recipeIdeasSchema,
     prompt: prompt,
+    temperature: TEMPERATURE,
+    maxTokens: MAX_TOKENS,
   })
 
   return result.toTextStreamResponse()
