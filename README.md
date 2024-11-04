@@ -1,23 +1,67 @@
-# TODO
+# Kitchi: AI Recipe Guru 🧑‍🍳
 
-- Substitutions
-- Increased options in form
-- Better form layout and design
-- Scroll areas inside card
-- Change options for number of suggestions
-- No ingredients then random recipe
-- Darkmode
+An AI-powered recipe generator built with Next.js, AI SDK, and Vercel that helps you discover new recipes based on your ingredients, dietary preferences, and culinary interests.
 
-Now I want to think about including interactive features. That modify and improve the recipe. This will likely require a new API route (maybe called tweaks. Ideally the tweaks will only return parts of the recipe that have changed to save tokens?
+## Features
 
-Next to each ingredient a small substitution button (small icon), that opens a dropdown with LLM generated substitution options, then selecting one from the menu updates the recipe, maybe include a 'Remove ingredient button'. Or maybe a better way to do it would be to allow multiple substitutions at once somehow? Perhaps via a modal?
+- Generate recipe ideas based on:
+  - Available ingredients
+  - Cuisine preferences
+  - Dietary requirements
+  - Serving size
+  - Difficulty level
+  - Spice level
+  - Time constraints
+- Exclude unwanted ingredients
+- Get detailed recipes with step-by-step instructions
+- Responsive design for all devices
+- Dark mode support
 
-Maybe a small "tips and tricks" button next to each step in the recipe that the user can click to update the recipe and get help, tips and tricks on that stage.
+## Tech Stack
 
-Maybe a button that brings up an input so the user can manually enter a prompt to modify the recipe maybe as a dialog?
+- [Next.js](https://nextjs.org/) - React framework
+- [Vercel AI SDK](https://sdk.vercel.ai/) - AI integration
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
 
-A copy to clipboard functionality for the recipe.
+## Getting Started
 
-Format the instructions to make all the listed ingredients bold (probably just a simple regex or find and replace job) nothing too complex.
+1. Clone the repository:
+```bash
+git clone https://github.com/mhurhangee/kitchi-ai-recipe-guru.git
+cd kitchi-ai-recipe-guru
+```
 
-Overall, I am not sure how best to implement the tweaks functionality. I want to balance UX and limited excessive amounts of API calls. Not sure how best to achieve flexibility and this balance so would welcome your input.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a `.env.local` file and add your environment variables:
+```
+OPENAI_API_KEY=your_api_key_here
+```
+
+4. Run the development server:
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+For questions or feedback, please contact: m.hurhangee@me.com
+
+## Roadmap
+
+[ ] Add the ability to tweak recipes.
